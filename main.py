@@ -94,7 +94,7 @@ def main():
 df_results = main()
 print(df_results)
 
-df_results.to_csv(results_dir / f'dataframe-{date_str}.csv')
+df_results.to_csv(f'dataframe-{date_str}.csv')
 
 def plot_chart(df):
     # Remove the iteration row from the dataframe
@@ -134,4 +134,4 @@ def plot_chart(df):
     plt.tight_layout()
     plt.show()
 
-    plt.savefig(results_dir / f'plot-{date_str}.jpg')
+    plt.savefig(f'plot-{date_str}.jpg')
