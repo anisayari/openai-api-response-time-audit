@@ -8,20 +8,27 @@ from pathlib import Path
 results_dir = Path("results")
 results_dir.mkdir(exist_ok=True)
 # Step 2: Generate a date-formatted string
-date_str = datetime.now().strftime("%Y%m%d")
+date_str = datetime.now().strftime("%Y%m%d%H")
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-models = [
-    "gpt-3.5-turbo",
-    "gpt-3.5-turbo-0301",
-    "gpt-3.5-turbo-0613",
-    "gpt-3.5-turbo-16k",
-    "gpt-3.5-turbo-16k-0613",
-    "gpt-4",
-    "gpt-4-0314",
-    "gpt-4-0613"
-]
+debug = True
+
+if debug:
+    models = ["gpt-3.5-turbo"]
+    iterations = 1
+else:
+    iterations = 3
+    models = [
+        "gpt-3.5-turbo",
+        "gpt-3.5-turbo-0301",
+        "gpt-3.5-turbo-0613",
+        "gpt-3.5-turbo-16k",
+        "gpt-3.5-turbo-16k-0613",
+        "gpt-4",
+        "gpt-4-0314",
+        "gpt-4-0613"
+    ]
 
 prompts = {
     "short": "A neighboring kingdom has proposed a trade deal. What should I consider?",
@@ -69,7 +76,6 @@ def test_model_speed(model_name, prompt_type, prompt_text):
     return duration
 
 def main():
-    iterations = 3
     results = []
     for iteration in range(iterations):
         for model in models:

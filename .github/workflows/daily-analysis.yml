@@ -33,8 +33,9 @@ jobs:
     
     - name: Commit and push results
       run: |
+        DATE_STR=$(date +"%Y%m%d%H")
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "actions@github.com"
-        git add results.csv plot.jpg
-        git commit -m "Automated daily analysis results update - $(date +"%D %T")"
+        git add results_dir/dataframe-$DATE_STR.csv results_dir/plot-$DATE_STR.jpg
+        git commit -m "Automated analysis results update - $(date +"%D %T")"
         git push
