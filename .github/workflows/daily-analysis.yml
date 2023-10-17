@@ -1,0 +1,36 @@
+name: Daily Analysis
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # This will run the action every day at midnight
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install openai pandas matplotlib
+
+    - name: Run analysis
+      run: python analysis_script.py
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    
+    - name: Commit and push results
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+        git add results.csv plot.jpg
+        git commit -m "Automated daily analysis results update - $(date +"%D %T")"
+        git push
