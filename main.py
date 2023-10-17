@@ -91,11 +91,7 @@ def main():
     df_pivot = df.pivot_table(index='Model', columns=['Prompt Type', 'Iteration'], values='Duration').reset_index()
     return df_pivot
 
-df_results = main()
-print(df_results)
 
-df_results.to_csv(f'dataframe-{date_str}.csv')
-print(f'dataframe-{date_str}.csv SAVED !')
 
 def plot_chart(df):
     # Remove the iteration row from the dataframe
@@ -137,3 +133,10 @@ def plot_chart(df):
 
     plt.savefig(f'plot-{date_str}.jpg')
     print(f'plot-{date_str}.jpg SAVED !')
+    
+df_results = main()
+print(df_results)
+
+df_results.to_csv(f'dataframe-{date_str}.csv')
+print(f'dataframe-{date_str}.csv SAVED !')
+plot_chart(df_results)
