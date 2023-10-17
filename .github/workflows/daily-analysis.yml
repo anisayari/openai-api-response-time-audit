@@ -27,7 +27,7 @@ jobs:
         pip install openai pandas matplotlib
 
     - name: Run analysis
-      run: python analysis_script.py
+      run: python main.py
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     
