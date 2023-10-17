@@ -3,4 +3,4 @@ the goal of this project is to build a  system to do dump api calls to the opena
 
 
 ## 18/10/2023
-![result](http://url/to/img.png](https://github.com/anisayari/openai-api-response-time-audit/blob/main/plot.jpg)https://github.com/anisayari/openai-api-response-time-audit/blob/main/plot.jpg?raw=true)
+![result](https://github.com/anisayari/openai-api-response-time-audit/blob/main/plot.jpg?raw=true)
