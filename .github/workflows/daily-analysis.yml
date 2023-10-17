@@ -1,8 +1,12 @@
 name: Daily Analysis
 
 on:
+  push:
+    branches:
+      - main # Assuming you want to run this on the main branch. Adjust as necessary.
   schedule:
-    - cron: '0 0 * * *' # This will run the action every day at midnight
+    - cron: '0 */3 * * *' # This will run the action every 3 hours
+    - cron: '0 0 * * *' # This will run the action every day at midnight (you can keep this if you want the daily run as well)
 
 jobs:
   analysis:
