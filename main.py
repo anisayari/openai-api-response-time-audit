@@ -1,6 +1,14 @@
 import openai
 from datetime import datetime
 import pandas as pd
+import os
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+results_dir = Path("results")
+results_dir.mkdir(exist_ok=True)
+# Step 2: Generate a date-formatted string
+date_str = datetime.now().strftime("%Y%m%d")
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
@@ -80,7 +88,7 @@ def main():
 df_results = main()
 print(df_results)
 
-df_results.to_csv('results.csv')
+df_results.to_csv(results_dir / f'dataframe-{date_str}.csv')
 
 def plot_chart(df):
     # Remove the iteration row from the dataframe
@@ -97,6 +105,9 @@ def plot_chart(df):
 
     # Set up the figure and axes
     fig, ax = plt.subplots(figsize=(14, 8))
+
+    # Calculate the positions for the bars
+    positions = range(len(df['Model']))
 
     # Plot the average bars
     df_avg.plot(kind='bar', x='Model', y=['short_avg', 'medium_avg', 'long_avg'], ax=ax, width=0.6)
@@ -117,4 +128,4 @@ def plot_chart(df):
     plt.tight_layout()
     plt.show()
 
-    plt.save('plot.jpg')
+    plt.savefig(results_dir / f'plot-{date_str}.jpg')
