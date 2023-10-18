@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-results_dir = Path("results")
+results_dir = Path('./results')
 results_dir.mkdir(exist_ok=True)
 # Step 2: Generate a date-formatted string
 date_str = datetime.now().strftime("%Y%m%d%H")
@@ -133,10 +133,42 @@ def plot_chart(df):
     plt.savefig(f'plot-{date_str}.jpg')
     print(f'plot-{date_str}.jpg SAVED !')
     
+
+def compile_dataframes(directory):
+    dataframes = []
+
+    for csv_file in directory.glob("dataframe-*.csv"):
+        df = pd.read_csv(csv_file)
+        date_str = csv_file.name.split('-')[1].split('.csv')[0]
+        date_obj = datetime.strptime(date_str, "%Y%m%d%H")
+        df['Datetime'] = date_obj
+        dataframes.append(df[['Model', 'short 1', 'Datetime']])
+
+    full_df = pd.concat(dataframes, axis=0, ignore_index=True)
+    return full_df
+
+def plot_line_chart(df):
+    pivot_df = df.pivot(index='Datetime', columns='Model', values='short 1')
+    
+    fig, ax = plt.subplots(figsize=(14, 8))
+    pivot_df.plot(ax=ax)
+    ax.set_title('Short Response Time (Iteration 1) by Model Over Time')
+    ax.set_ylabel('Response Time (ms)')
+    ax.set_xlabel('Datetime')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('line_chart.jpg', dpi=300)
+
+
 df_results = main()
+
 print(df_results)
 
 df_results.to_csv(f'dataframe-{date_str}.csv')
 df_results = pd.read_csv(f'dataframe-{date_str}.csv')
+
 print(f'dataframe-{date_str}.csv SAVED !')
 plot_chart(df_results)
+
+compiled_df = compile_dataframes(results_dir)
+plot_line_chart(compiled_df)
