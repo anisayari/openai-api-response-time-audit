@@ -105,7 +105,6 @@ def plot_chart(df):
     # Keep only the necessary columns
     df_avg = df[['Model', 'short_avg', 'medium_avg', 'long_avg']]
 
-
     # Set up the figure and axes
     fig, ax = plt.subplots(figsize=(14, 8))
 
@@ -138,5 +137,6 @@ df_results = main()
 print(df_results)
 
 df_results.to_csv(f'dataframe-{date_str}.csv')
+df_results = pd.read_csv(f'dataframe-{date_str}.csv')
 print(f'dataframe-{date_str}.csv SAVED !')
 plot_chart(df_results)
