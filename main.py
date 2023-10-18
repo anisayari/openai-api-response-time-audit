@@ -131,7 +131,7 @@ def plot_chart(df):
     plt.show()
 
     plt.savefig(f'plot-{date_str}.jpg')
-    print(f'plot-{date_str}.jpg SAVED !')
+    plt.savefig(results_dir / f'plot-{date_str}.jpg')
     
 
 def compile_dataframes(directory):
@@ -160,15 +160,14 @@ def plot_line_chart(df):
     ax.set_xlabel('Datetime')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('line_chart.jpg', dpi=300)
+    plt.savefig(results_dir / 'line_chart.jpg', dpi=300)
 
 
 df_results = main()
 
 print(df_results)
 
-df_results.to_csv(f'dataframe-{date_str}.csv')
-df_results = pd.read_csv(f'dataframe-{date_str}.csv')
+df_results.to_csv(results_dir / f'dataframe-{date_str}.csv')
 
 print(f'dataframe-{date_str}.csv SAVED !')
 plot_chart(df_results)
