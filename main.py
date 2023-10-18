@@ -16,7 +16,7 @@ debug = True
 
 if debug:
     models = ["gpt-3.5-turbo"]
-    iterations = 1
+    iterations = 3
 else:
     iterations = 3
     models = [
