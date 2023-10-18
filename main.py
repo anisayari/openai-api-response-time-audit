@@ -116,7 +116,7 @@ def plot_chart(df):
 
     # Overlay scatter points for each iteration
     for i, text_type in enumerate(['short', 'medium', 'long']):
-        for j in range(3):
+        for j in range(iterations):
             col_name = f"{text_type}.{j}" if j != 0 else text_type
             ax.scatter(positions, df[col_name], marker='o', color='k', s=50, zorder=3, label=f"{text_type.capitalize()} Iteration {j + 1}" if i == 0 else "")
 

@@ -38,6 +38,8 @@ jobs:
         git config --global user.email "actions@github.com"
         mv dataframe-$DATE_STR.csv results/
         mv plot-$DATE_STR.jpg results/
-        git add results/dataframe-$DATE_STR.csv results/plot-$DATE_STR.jpg
+        # Update the README.md with the latest plot URL
+        sed -i "/<!-- PLOT-PLACEHOLDER-START -->/,/<!-- PLOT-PLACEHOLDER-END -->/c\<!-- PLOT-PLACEHOLDER-START -->\n![result](https://github.com/anisayari/openai-api-response-time-audit/blob/main/results/plot-$DATE_STR.jpg?raw=true)\n<!-- PLOT-PLACEHOLDER-END -->" README.md
+        git add results/dataframe-$DATE_STR.csv results/plot-$DATE_STR.jpg README.md
         git commit -m "Automated analysis results update - $(date +"%D %T")"
         git push
