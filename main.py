@@ -122,7 +122,7 @@ def plot_chart(df):
 
     # Set title, labels, and legend
     ax.set_title('Average API Delay with Iterations for Different Models and Text Lengths')
-    ax.set_ylabel('Delay (ms)')
+    ax.set_ylabel('Delay (s)')
     ax.set_xlabel('Model')
     ax.legend(title=f'Text Length & Iteration - {date_str}', bbox_to_anchor=(1.05, 1), loc='upper left')
     ax.set_xticklabels(df_avg['Model'], rotation=45, ha='right')
@@ -130,7 +130,6 @@ def plot_chart(df):
     plt.tight_layout()
     plt.show()
 
-    plt.savefig(f'plot-{date_str}.jpg')
     plt.savefig(results_dir / f'plot-{date_str}.jpg')
     
 
@@ -156,7 +155,7 @@ def plot_line_chart(df):
     fig, ax = plt.subplots(figsize=(14, 8))
     pivot_df.plot(ax=ax)
     ax.set_title('Short Response Time (Iteration 1) by Model Over Time')
-    ax.set_ylabel('Response Time (ms)')
+    ax.set_ylabel('Response Time (s)')
     ax.set_xlabel('Datetime')
     plt.xticks(rotation=45)
     plt.tight_layout()
