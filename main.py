@@ -12,7 +12,7 @@ date_str = datetime.now().strftime("%Y%m%d%H")
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-debug = True
+debug = False
 
 if debug:
     models = ["gpt-3.5-turbo"]
@@ -124,7 +124,7 @@ def plot_chart(df):
     ax.set_title('Average API Delay with Iterations for Different Models and Text Lengths')
     ax.set_ylabel('Delay (ms)')
     ax.set_xlabel('Model')
-    ax.legend(title='Text Length & Iteration', bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax.legend(title=f'Text Length & Iteration - {date_str}', bbox_to_anchor=(1.05, 1), loc='upper left')
     ax.set_xticklabels(df_avg['Model'], rotation=45, ha='right')
 
     plt.tight_layout()
