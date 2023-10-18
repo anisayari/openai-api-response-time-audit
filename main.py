@@ -168,8 +168,8 @@ df_results = main()
 print(df_results)
 
 df_results.to_csv(results_dir / f'dataframe-{date_str}.csv')
-
-print(f'dataframe-{date_str}.csv SAVED !')
+df_results = pd.read_csv(results_dir / f'dataframe-{date_str}.csv')
+print(results_dir / f'dataframe-{date_str}.csv')
 plot_chart(df_results)
 
 compiled_df = compile_dataframes(results_dir)
