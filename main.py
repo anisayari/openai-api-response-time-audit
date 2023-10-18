@@ -139,16 +139,19 @@ def compile_dataframes(directory):
 
     for csv_file in directory.glob("dataframe-*.csv"):
         df = pd.read_csv(csv_file)
+        if 'short.1' in df.columns.tolist():
+            df.rename(columns={"short.1": "short"})
+        print(df.columns)
         date_str = csv_file.name.split('-')[1].split('.csv')[0]
         date_obj = datetime.strptime(date_str, "%Y%m%d%H")
         df['Datetime'] = date_obj
-        dataframes.append(df[['Model', 'short 1', 'Datetime']])
+        dataframes.append(df[['Model', 'short', 'Datetime']])
 
     full_df = pd.concat(dataframes, axis=0, ignore_index=True)
     return full_df
 
 def plot_line_chart(df):
-    pivot_df = df.pivot(index='Datetime', columns='Model', values='short 1')
+    pivot_df = df.pivot(index='Datetime', columns='Model', values='short')
     
     fig, ax = plt.subplots(figsize=(14, 8))
     pivot_df.plot(ax=ax)
