@@ -16,7 +16,7 @@ debug = True
 
 if debug:
     models = ["gpt-3.5-turbo"]
-    iterations = 1
+    iterations = 3
 else:
     iterations = 3
     models = [
@@ -98,9 +98,9 @@ def plot_chart(df):
     df = df[df['Prompt Type'] != 'Iteration']
   
     # Calculate the mean for each text length and model
-    df['short_avg'] = df[['short']].mean(axis=1)
-    df['medium_avg'] = df[['medium']].mean(axis=1)
-    df['long_avg'] = df[['long']].mean(axis=1)
+    df['short_avg'] = df[['short', 'short.1', 'short.2']].mean(axis=1)
+    df['medium_avg'] = df[['medium', 'medium.1', 'medium.2']].mean(axis=1)
+    df['long_avg'] = df[['long', 'long.1', 'long.2']].mean(axis=1)
   
     # Keep only the necessary columns
     df_avg = df[['Model', 'short_avg', 'medium_avg', 'long_avg']]
