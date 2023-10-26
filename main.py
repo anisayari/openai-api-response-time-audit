@@ -62,18 +62,27 @@ system_data = ("You are the wise advisor to the king of a great kingdom. The kin
 
 def test_model_speed(model_name, prompt_type, prompt_text):
     messages = [
-            {"role": "system", "content": system_data},
-            {"role": "user", "content": prompt_text} ]
-
+        {"role": "system", "content": system_data},
+        {"role": "user", "content": prompt_text}
+    ]
+    
     start = datetime.now()
-    response = openai.ChatCompletion.create(
-        model=model_name,
-        messages=messages,
-        max_tokens=150
-    )
-    end = datetime.now()
-    duration = (end - start).total_seconds()
+    
+    try:
+        response = openai.ChatCompletion.create(
+            model=model_name,
+            messages=messages,
+            max_tokens=150
+        )
+        end = datetime.now()
+        duration = (end - start).total_seconds()
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        duration = None
+        openai.api_key = os.environ.get("OPENAI_API_KEY")  # Attempt to reestablish connection
+    
     return duration
+
 
 def main():
     results = []
@@ -94,6 +103,8 @@ def main():
 
 
 def plot_chart(df):
+    df = df.apply(lambda col: pd.to_numeric(col, errors='coerce') if col.name in ['short', 'medium', 'long'] else col)
+
     # Remove the iteration row from the dataframe
     df = df[df['Prompt Type'] != 'Iteration']
   
@@ -150,6 +161,8 @@ def compile_dataframes(directory):
     return full_df
 
 def plot_line_chart(df):
+    df['short'] = pd.to_numeric(df['short'], errors='coerce')
+    
     pivot_df = df.pivot(index='Datetime', columns='Model', values='short')
     
     fig, ax = plt.subplots(figsize=(14, 8))
