@@ -3,6 +3,6 @@ the goal of this project is to build a  system to do dump api calls to the opena
 
 ## Latest Plot
 <!-- PLOT-PLACEHOLDER-START -->
-![result](https://github.com/anisayari/openai-api-response-time-audit/blob/main/results/plot-2023110516.jpg?raw=true)
+![result](https://github.com/anisayari/openai-api-response-time-audit/blob/main/results/plot-2023110517.jpg?raw=true)
 ![line chart](https://github.com/anisayari/openai-api-response-time-audit/blob/main/results/line_chart.jpg?raw=true)
 <!-- PLOT-PLACEHOLDER-END -->
